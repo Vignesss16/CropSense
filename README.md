@@ -93,12 +93,17 @@ Open: http://localhost:3000
 Create a file named `.env.local` in the root of the project:
 
 ```env
-# Supabase (required)
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+# ─── Supabase (REQUIRED) ─────────────────────────────────────────────────────
+# Find at: Supabase Dashboard → Project Settings → API
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key-here
 
-# OpenAI (optional — app works without it using rule-based fallback)
-NEXT_PUBLIC_OPENAI_API_KEY=sk-your-openai-api-key
+# ─── Google Gemini (OPTIONAL) ────────────────────────────────────────────────
+# App works WITHOUT this key using rule-based fallback responses
+# FREE tier: 15 requests/day
+# Get key at: https://ai.google.dev/
+NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY=your-google-gemini-api-key-here
+
 ```
 
 Where to find these values:
