@@ -187,7 +187,7 @@ export default function DiagnosePage() {
             </div>
             <span className="text-xs text-forest-400 uppercase tracking-widest font-medium">AI Diagnosis</span>
           </div>
-          <h1 className="font-display text-2xl sm:text-3xl font-bold premium-text mb-1 leading-tight">
+          <h1 className="font-display text-xl sm:text-3xl font-bold premium-text mb-1 leading-tight hyphens-auto">
             {t('diagnoseCrop')}
           </h1>
           <p className="text-forest-300 text-xs sm:text-sm max-w-lg leading-relaxed">
@@ -228,7 +228,7 @@ export default function DiagnosePage() {
               </label>
               <div className="flex gap-2">
                 <select
-                  className="flex-1 p-3 bg-forest-950/60 border border-forest-700 rounded-xl text-white outline-none focus:border-amber-500 transition-colors text-sm"
+                  className="flex-1 p-3 bg-forest-950/60 border border-forest-700 rounded-xl text-white outline-none focus:border-amber-500 transition-colors text-sm min-w-0"
                   value={region}
                   onChange={(e) => setRegion(e.target.value)}
                 >
@@ -247,11 +247,6 @@ export default function DiagnosePage() {
                   }
                 </button>
               </div>
-              {region && (
-                <p className="mt-2 text-xs text-amber-400 flex items-center gap-1">
-                  <MapPin size={10} /> {t(`states.${region}`) || region}
-                </p>
-              )}
             </div>
 
             {/* Image Upload */}
@@ -320,11 +315,11 @@ export default function DiagnosePage() {
             <button
               onClick={handleAnalyze}
               disabled={analyzing || !cropType || !region || !imageFile}
-              className="w-full py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5
+              className="w-full py-4 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2
                 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400
                 text-white border border-amber-400/30 shadow-lg shadow-amber-900/30
                 hover:shadow-amber-500/30 hover:-translate-y-0.5 transition-all
-                disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0 uppercase tracking-wider"
+                disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0 uppercase tracking-tight sm:tracking-wider whitespace-nowrap"
             >
               {analyzing
                 ? <><Loader2 size={18} className="animate-spin" /> {t('analyzingImage')}</>
