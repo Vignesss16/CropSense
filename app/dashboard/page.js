@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FlaskConical, Clock, Sprout, Lightbulb, ChevronRight, AlertTriangle, Users, BookOpen, Info, ChevronDown } from 'lucide-react'
+import { FlaskConical, Clock, Sprout, Lightbulb, ChevronRight, AlertTriangle, Users, BookOpen, Info, ChevronDown, X } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import SeverityBadge from '@/components/SeverityBadge'
 import { getFarmingTips, INDIAN_STATES } from '@/utils/farmingTips'
@@ -23,6 +23,7 @@ export default function DashboardPage() {
   const [viewMode, setViewMode] = useState('personal') // 'personal' | 'community'
   const [expandedId, setExpandedId] = useState(null)
   const [regionFilter, setRegionFilter] = useState('all')
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     async function init() {
@@ -234,8 +235,26 @@ export default function DashboardPage() {
 
                       <div className="flex items-start justify-between gap-4 flex-wrap relative z-10">
                         <div className="flex items-start gap-3 sm:gap-4">
-                          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${viewMode === 'community' ? 'bg-amber-900/50 border border-amber-500/40' : 'bg-forest-700/80 border border-forest-400/50'}`}>
-                            {viewMode === 'community' ? <AlertTriangle size={18} className="text-amber-400 drop-shadow-md" /> : <Sprout size={18} className="text-emerald-400 drop-shadow-md" />}
+                          <div 
+                            onClick={(e) => {
+                              if (d.image_url) {
+                                e.stopPropagation();
+                                setSelectedImage(d.image_url);
+                              }
+                            }}
+                            className={`w-10 h-10 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg overflow-hidden border-2 transition-transform active:scale-95 ${
+                              d.image_url 
+                                ? 'border-amber-500/50 cursor-zoom-in' 
+                                : viewMode === 'community' 
+                                  ? 'bg-amber-900/50 border-amber-500/40' 
+                                  : 'bg-forest-700/80 border-forest-400/50'
+                            }`}
+                          >
+                            {d.image_url ? (
+                              <img src={d.image_url} alt="Crop leaf" className="w-full h-full object-cover" />
+                            ) : (
+                              viewMode === 'community' ? <AlertTriangle size={18} className="text-amber-400 drop-shadow-md" /> : <Sprout size={18} className="text-emerald-400 drop-shadow-md" />
+                            )}
                           </div>
                           <div>
                             <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -380,6 +399,39 @@ export default function DashboardPage() {
           </div>
         </div>
       </main>
+
+      {/* Image Modal Overlay */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8 backdrop-blur-sm cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-4xl w-full h-auto max-h-[85vh] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage} 
+                alt="Enlarged crop leaf" 
+                className="w-full h-full object-contain bg-forest-950" 
+              />
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors border border-white/20 shadow-lg"
+              >
+                <X size={20} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

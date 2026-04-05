@@ -121,9 +121,24 @@ export default function DiagnosePage() {
   }
 
   const handleSave = async () => {
-    if (!result || !user || saving || saved) return
+    if (!result || !user || saving || saved || !imageFile) return
     setSaving(true)
     try {
+      // 1. Upload image to Supabase Storage
+      const fileExt = imageFile.name.split('.').pop()
+      const fileName = `${user.id}/${Date.now()}.${fileExt}`
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('diagnoses')
+        .upload(fileName, imageFile)
+
+      if (uploadError) throw uploadError
+
+      // 2. Get Public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('diagnoses')
+        .getPublicUrl(fileName)
+
+      // 3. Insert into database
       const { error: insertError } = await supabase.from('diagnoses').insert({
         user_id: user.id,
         crop_type: cropType,
@@ -133,12 +148,13 @@ export default function DiagnosePage() {
         remedy: Array.isArray(result.remedy) ? result.remedy.map(r => typeof r === 'object' ? JSON.stringify(r) : r) : result.remedy,
         farmer_note: typeof result.farmer_note === 'object' ? JSON.stringify(result.farmer_note) : result.farmer_note,
         region: region,
+        image_url: publicUrl,
       })
       if (insertError) throw insertError
       setSaved(true)
     } catch (err) {
-      console.error("DB Insert Error:", err);
-      setError(t('failedToSave'))
+      console.error("Save Error:", err);
+      setError(t('failedToSave') + " (Storage error?)")
     } finally {
       setSaving(false)
     }
