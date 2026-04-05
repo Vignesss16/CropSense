@@ -35,11 +35,11 @@ export default function Navbar({ user }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/dashboard" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-forest-600/60 border border-forest-400/40 flex items-center justify-center group-hover:bg-forest-500/60 transition-colors">
-              <Leaf size={16} className="text-amber-500" />
+          <Link href="/dashboard" className="flex items-center gap-2 sm:gap-2.5 group">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-forest-600/60 border border-forest-400/40 flex items-center justify-center group-hover:bg-forest-500/60 transition-colors">
+              <Leaf size={14} className="text-amber-500" />
             </div>
-            <span className="font-display text-lg font-bold text-white tracking-tight">
+            <span className="font-display text-base sm:text-lg font-bold text-white tracking-tight">
               Nalam<span className="text-amber-500">Agri</span>
             </span>
           </Link>

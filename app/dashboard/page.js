@@ -89,7 +89,7 @@ export default function DashboardPage() {
           className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
         >
           <div>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold premium-text mb-0 leading-normal">
+            <h1 className="font-display text-2xl sm:text-4xl font-bold premium-text mb-0 leading-tight">
               {t('farmDashboard')}
             </h1>
             <p className="text-forest-400 text-sm drop-shadow-md">
@@ -100,7 +100,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/diagnose"
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white text-sm font-bold shadow-lg shadow-amber-900/30 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5 border border-amber-400/50"
+            className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white text-sm font-bold shadow-lg shadow-amber-900/30 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5 border border-amber-400/50"
           >
             <FlaskConical size={16} />
             {t('diagnoseMyCrop')}
@@ -227,15 +227,15 @@ export default function DashboardPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.4, delay: index * 0.05 }}
-                      className="glass-panel rounded-2xl p-6 transition-all group cursor-pointer hover:-translate-y-1 hover:shadow-2xl hover:shadow-forest-900/40 relative overflow-hidden"
+                      className="glass-panel rounded-2xl p-4 sm:p-6 transition-all group cursor-pointer hover:-translate-y-1 hover:shadow-2xl hover:shadow-forest-900/40 relative overflow-hidden"
                     >
                       {/* Interactive hover glow */}
                       <div className="absolute inset-0 bg-gradient-to-r from-forest-400/0 via-forest-400/5 to-forest-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                       <div className="flex items-start justify-between gap-4 flex-wrap relative z-10">
-                        <div className="flex items-start gap-4">
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${viewMode === 'community' ? 'bg-amber-900/50 border border-amber-500/40' : 'bg-forest-700/80 border border-forest-400/50'}`}>
-                            {viewMode === 'community' ? <AlertTriangle size={20} className="text-amber-400 drop-shadow-md" /> : <Sprout size={20} className="text-emerald-400 drop-shadow-md" />}
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${viewMode === 'community' ? 'bg-amber-900/50 border border-amber-500/40' : 'bg-forest-700/80 border border-forest-400/50'}`}>
+                            {viewMode === 'community' ? <AlertTriangle size={18} className="text-amber-400 drop-shadow-md" /> : <Sprout size={18} className="text-emerald-400 drop-shadow-md" />}
                           </div>
                           <div>
                             <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -263,7 +263,7 @@ export default function DashboardPage() {
                       </div>
 
                       {d.cause && (
-                        <div className="mt-4 pl-16 relative z-10">
+                        <div className="mt-3 sm:mt-4 pl-13 sm:pl-16 relative z-10">
                           <p className={`text-forest-200 text-sm leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
                             {getLocalized(d.cause, lang)}
                           </p>
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden relative z-10"
                           >
-                            <div className="mt-5 pt-5 border-t border-forest-600/40 pl-16">
+                            <div className="mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-forest-600/40 pl-13 sm:pl-16">
                               <p className="text-xs text-forest-300 uppercase tracking-widest font-bold mb-3 flex items-center gap-2">
                                 <BookOpen size={14} className="text-amber-500/80"/>{t('remedyPlan')}
                               </p>
@@ -293,13 +293,13 @@ export default function DashboardPage() {
                             </div>
                             
                             {d.farmer_note && (
-                              <div className="mt-4 pt-4 border-t border-forest-600/40 pl-16">
-                                <div className="rounded-xl p-4 border border-amber-500/30 bg-amber-500/10">
-                                  <p className="text-amber-400 text-xs font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-forest-600/40 pl-13 sm:pl-16">
+                                <div className="rounded-xl p-3 sm:p-4 border border-amber-500/30 bg-amber-500/10">
+                                  <p className="text-amber-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
                                     <Sprout size={14} />
                                     {t('inSimpleWords')} 🌾
                                   </p>
-                                  <p className="text-amber-100 text-sm leading-relaxed">{getLocalized(d.farmer_note, lang)}</p>
+                                  <p className="text-amber-100 text-xs sm:text-sm leading-relaxed">{getLocalized(d.farmer_note, lang)}</p>
                                 </div>
                               </div>
                             )}
@@ -308,7 +308,7 @@ export default function DashboardPage() {
                       </AnimatePresence>
                       
                       {!isExpanded && viewMode === 'personal' && d.remedy && d.remedy.length > 0 && (
-                        <div className="mt-4 pt-4 border-t border-forest-600/30 pl-16 opacity-80 group-hover:opacity-100 transition-opacity relative z-10">
+                        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-forest-600/30 pl-13 sm:pl-16 opacity-80 group-hover:opacity-100 transition-opacity relative z-10">
                           <p className="text-[10px] text-forest-400 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
                             <BookOpen size={10}/>{t('remedyPlan')}
                           </p>
@@ -338,29 +338,29 @@ export default function DashboardPage() {
               </h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="flex flex-row lg:flex-col gap-4 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 no-scrollbar snap-x snap-proximity">
               {farmingTips.map((tip, index) => (
                 <motion.div
                   key={tip.id}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="glass-panel p-5 rounded-2xl hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/20 transition-all group relative overflow-hidden"
+                  className="glass-panel p-4 sm:p-5 rounded-2xl hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/20 transition-all group relative overflow-hidden min-w-[280px] sm:min-w-[320px] lg:min-w-0 snap-center"
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-colors pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-colors pointer-events-none" />
                   
                   <div className="flex items-center gap-3 mb-2 relative z-10">
-                    <div className="w-10 h-10 rounded-xl bg-forest-950/80 border border-forest-600/50 flex items-center justify-center flex-shrink-0 shadow-inner">
-                      <span className="text-lg">{tip.icon}</span>
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-950/80 border border-forest-600/50 flex items-center justify-center flex-shrink-0 shadow-inner">
+                      <span className="text-base sm:text-lg">{tip.icon}</span>
                     </div>
                     <div>
-                      <h4 className="text-white text-md font-bold leading-tight">{tip.title}</h4>
-                      <span className="inline-block mt-1 text-amber-400 text-[9px] font-bold uppercase tracking-widest">
+                      <h4 className="text-white text-sm sm:text-md font-bold leading-tight">{tip.title}</h4>
+                      <span className="inline-block mt-1 text-amber-400 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest">
                         {tip.category}
                       </span>
                     </div>
                   </div>
-                  <p className="text-forest-200 text-sm leading-relaxed mt-3 relative z-10">{tip.tip}</p>
+                  <p className="text-forest-200 text-xs sm:text-sm leading-relaxed mt-2 sm:mt-3 relative z-10 font-normal">{tip.tip}</p>
                 </motion.div>
               ))}
             </div>

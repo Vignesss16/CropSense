@@ -171,15 +171,15 @@ export default function DiagnosePage() {
             </div>
             <span className="text-xs text-forest-400 uppercase tracking-widest font-medium">AI Diagnosis</span>
           </div>
-          <h1 className="font-display text-2xl sm:text-3xl font-bold premium-text mb-1">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold premium-text mb-1 leading-tight">
             {t('diagnoseCrop')}
           </h1>
-          <p className="text-forest-300 text-sm max-w-lg">
+          <p className="text-forest-300 text-xs sm:text-sm max-w-lg leading-relaxed">
             {t('diagnoseDescription')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
 
           {/* ── LEFT: Input Panel ── */}
           <motion.div
@@ -190,7 +190,7 @@ export default function DiagnosePage() {
           >
 
             {/* Crop Type */}
-            <div className="glass-panel rounded-2xl p-5">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5">
               <label className="block text-xs text-forest-300 uppercase tracking-widest font-bold mb-3">
                 🌿 {t('selectCrop')}
               </label>
@@ -205,7 +205,7 @@ export default function DiagnosePage() {
             </div>
 
             {/* Region */}
-            <div className="glass-panel rounded-2xl p-5">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5">
               <label className="block text-xs text-forest-300 uppercase tracking-widest font-bold mb-3 flex items-center gap-1.5">
                 <MapPin size={12} className="text-amber-400" />
                 {t('farmRegionLabel')}
@@ -239,7 +239,7 @@ export default function DiagnosePage() {
             </div>
 
             {/* Image Upload */}
-            <div className="glass-panel rounded-2xl p-5">
+            <div className="glass-panel rounded-2xl p-4 sm:p-5">
               <label className="block text-xs text-forest-300 uppercase tracking-widest font-bold mb-3">
                 📷 {t('uploadInstruction')}
               </label>
@@ -249,7 +249,7 @@ export default function DiagnosePage() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className={`relative rounded-xl border-2 border-dashed p-10 text-center cursor-pointer transition-all ${
+                  className={`relative rounded-xl border-2 border-dashed p-6 sm:p-10 text-center cursor-pointer transition-all ${
                     dragOver
                       ? 'border-amber-500/70 bg-amber-900/20 scale-[1.01]'
                       : 'border-forest-600/50 hover:border-forest-400/50 hover:bg-forest-800/20'
@@ -370,8 +370,8 @@ export default function DiagnosePage() {
                 <div className="w-20 h-20 rounded-2xl bg-forest-900/80 border border-forest-600/30 flex items-center justify-center mb-5 shadow-inner">
                   <span className="text-4xl">🔬</span>
                 </div>
-                <h3 className="text-white font-bold text-lg mb-2">{t('readyForDiagnosis')}</h3>
-                <p className="text-forest-400 text-sm max-w-xs leading-relaxed">{t('uploadClearImage')}</p>
+                <h3 className="text-white font-bold text-md sm:text-lg mb-2">{t('readyForDiagnosis')}</h3>
+                <p className="text-forest-400 text-xs sm:text-sm max-w-xs leading-relaxed">{t('uploadClearImage')}</p>
                 <div className="flex flex-col gap-2 mt-6 w-full max-w-[200px] text-xs text-forest-500 text-left">
                   {[
                     '✓ Select your crop type',
