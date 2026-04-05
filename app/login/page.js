@@ -14,19 +14,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [mode, setMode] = useState('login') // 'login' | 'signup'
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    setSuccess('')
     setLoading(true)
 
     try {
       if (mode === 'signup') {
         const { error } = await supabase.auth.signUp({ email, password })
         if (error) throw error
-        setSuccess('Account created! Check your email to confirm, then log in.')
+        // Auto sign-in or route immediately
+        router.push('/dashboard')
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
@@ -36,6 +35,20 @@ export default function LoginPage() {
       setError(err.message || 'Something went wrong. Please try again.')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
+      })
+      if (error) throw error
+    } catch (err) {
+      setError(err.message || 'Failed to login with Google')
     }
   }
 
@@ -62,7 +75,7 @@ export default function LoginPage() {
             <Leaf size={28} className="text-amber-500" />
           </motion.div>
           <h1 className="font-display text-3xl font-bold text-white mb-1">
-            Crop<span className="text-amber-500">Sense</span>
+            Nalam<span className="text-amber-500">Agri</span>
           </h1>
           <p className="text-forest-300 text-sm">AI-powered crop health assistant</p>
         </div>
@@ -85,7 +98,7 @@ export default function LoginPage() {
             {['login', 'signup'].map((tab) => (
               <button
                 key={tab}
-                onClick={() => { setMode(tab); setError(''); setSuccess('') }}
+                onClick={() => { setMode(tab); setError(''); }}
                 className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all
                   ${mode === tab
                     ? 'bg-forest-600/70 text-white border border-forest-400/30 shadow-sm'
@@ -142,7 +155,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Error / Success */}
+            {/* Error */}
             {error && (
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
@@ -150,15 +163,6 @@ export default function LoginPage() {
                 className="px-4 py-3 rounded-xl bg-red-900/30 border border-red-700/40 text-red-300 text-sm"
               >
                 {error}
-              </motion.div>
-            )}
-            {success && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="px-4 py-3 rounded-xl bg-green-900/30 border border-green-700/40 text-green-300 text-sm"
-              >
-                {success}
               </motion.div>
             )}
 
@@ -182,11 +186,50 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-forest-700"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-forest-900/40 text-forest-400 backdrop-blur-sm">Or continue with</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handleGoogleLogin}
+              className="mt-4 w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-3
+                bg-forest-800/50 hover:bg-forest-700/60 text-white border border-forest-600/50 hover:border-forest-500/60
+                transition-all"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+                <path d="M1 1h22v22H1z" fill="none" />
+              </svg>
+              Google
+            </button>
+          </div>
         </div>
 
         {/* Footer */}
         <p className="text-center text-forest-500 text-xs mt-6">
-          🌿 CropSense — Built for farmers, powered by AI
+          🌿 NalamAgri — Built for farmers, powered by AI
         </p>
       </motion.div>
     </div>
