@@ -1,4 +1,4 @@
-# 🌿 CropSense — AI Crop Health Assistant
+# 🌿 NalamAgri — AI Crop Health Assistant
 
 > Smart farming assistant that diagnoses crop diseases using AI and recommends actionable fixes for farmers.
 
@@ -7,7 +7,7 @@
 ## 1. PROJECT FOLDER STRUCTURE
 
 ```
-cropsense/
+NalamAgri/
 ├── app/
 │   ├── globals.css
 │   ├── layout.js
@@ -40,8 +40,8 @@ cropsense/
 
 ```bash
 # Create and enter project
-npx create-next-app@14.2.5 cropsense --app --no-typescript --no-eslint --no-src-dir --import-alias "@/*"
-cd cropsense
+npx create-next-app@14.2.5 NalamAgri --app --no-typescript --no-eslint --no-src-dir --import-alias "@/*"
+cd NalamAgri
 
 # Then replace all generated files with the ones from this repo
 # Install all dependencies at once:
