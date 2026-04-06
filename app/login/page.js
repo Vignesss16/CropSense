@@ -42,7 +42,7 @@ export default function LoginPage() {
     try {
       // Use the current window location to ensure it works on both localhost and Vercel
       const redirectTo = `${window.location.origin}/dashboard`
-      
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
