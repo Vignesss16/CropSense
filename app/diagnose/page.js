@@ -260,11 +260,10 @@ export default function DiagnosePage() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className={`relative rounded-xl border-2 border-dashed p-6 sm:p-10 text-center cursor-pointer transition-all ${
-                    dragOver
-                      ? 'border-amber-500/70 bg-amber-900/20 scale-[1.01]'
-                      : 'border-forest-600/50 hover:border-forest-400/50 hover:bg-forest-800/20'
-                  }`}
+                  className={`relative rounded-xl border-2 border-dashed p-6 sm:p-10 text-center cursor-pointer transition-all ${dragOver
+                    ? 'border-amber-500/70 bg-amber-900/20 scale-[1.01]'
+                    : 'border-forest-600/50 hover:border-forest-400/50 hover:bg-forest-800/20'
+                    }`}
                 >
                   <div className="w-12 h-12 rounded-xl bg-forest-900/80 border border-forest-600/50 flex items-center justify-center mx-auto mb-3">
                     <span className="text-2xl">🌾</span>

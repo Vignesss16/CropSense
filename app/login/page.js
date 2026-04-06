@@ -40,10 +40,17 @@ export default function LoginPage() {
 
   const handleGoogleLogin = async () => {
     try {
+      // Use the current window location to ensure it works on both localhost and Vercel
+      const redirectTo = `${window.location.origin}/dashboard`
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: redirectTo,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         }
       })
       if (error) throw error
