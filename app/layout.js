@@ -1,5 +1,6 @@
 import './globals.css'
 import { LanguageProvider } from '@/lib/LanguageContext'
+import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'NalamAgri — AI Crop Health Assistant',
@@ -14,8 +15,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-field noise antialiased">
         <LanguageProvider>
-          <div className="relative z-10 min-h-screen">
+          <div className="relative z-10 min-h-screen pb-16">
             {children}
+            <Footer />
           </div>
         </LanguageProvider>
       </body>
